@@ -20,3 +20,55 @@ dhcpd
 httpd
 
 xinet tftpd
+
+Add the ip-address of the VM as an ip-helper on the subnet you need to netboot macs on. This subnet should already have a dhcp server (most likely the current setup)
+
+Now when a mac boots with N it will call for a dhcp address, and later for a dhcp Inform. The current dhcp server most likely have no idea what the mac wants but the mac will also ask via the ip-helper the VM. This server knows and will send two options:
+
+kernel path: i386/booter
+
+and booter image path: http://theipadressofyourVM/boot/booter.dmg
+
+so in this step the three services are involved in this sequence:
+
+dhcpd
+
+serves out the options required for the mac to get all required info to net boot
+
+tftpd
+
+serves out the kernel and kernelcache files required to boot the hardware
+
+httpd
+
+serves out the booter image required to load a complete OSX graphical user interface
+
+Now when the mac has netbooted on the booter image it will load terminal and curl down the restore.sh script from the VM. This script is a regular bash script and hence is quite easily customized for your needs if you speak bash.
+
+The script as it is shiped will look for a restore image called restore.dmg that will be located at:
+
+http://theipadressofyourVM/restore/restore.dmg
+
+This file will be restored to the first available partition on the local disk.
+
+The last step is to set the boot-volume and then it reboots.
+
+So the build process has the following ideas:
+
+it installs all required rpms to get a working centos server with httpd and tftpd services running out of the box.
+
+It then copies the configure.sh script that later runs as the last step before your appliance is done.
+
+The configure script sets your appliance up with a swedish keyboard layout. You can easly change this to reflect your own layout. The script also sets the hostname to netbooter, change this now or later to reflect the DNS name of your server. It will turn selinux off and create a ifcfg-eth0 file located in the /root directory for reference if you need (and you should) static ip address on the VM. It also adds a local user called imager with password imager that you can use for uploading images to the restore path: /var/www/html/restore/ 
+
+As a last step it adds a script intended to setup the server with all the local parameters. This script is located at /root/fixit.sh. You will need to change several occurrences of theipaddress to the correct ip-address and this script will fix that for you. It will also copy the tftp files to the CentOS 6 default location from the CentOS 5 location.
+
+The rc.local script will run when the Vm is started for the first time and will do the same copy of tftp files to the new default location, I added in this because I kept forgetting to do this step.
+
+The fixipaddress.sh is basically the same script as fixit.sh. Cleanup is a good idea.
+
+The build process will also add the webmin repo to the default repos for your webmin needs. It is a great web frontend to manage your server, use if you like.
+
+To create the booter image you will need the most current version of the InstallESD.dmg file that you can get from the Install Lion app that you can by from the App-store.
+
+Get the entire directory from the source. It is imperative that you have two directories within the build directory
