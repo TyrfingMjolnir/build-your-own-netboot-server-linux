@@ -1,0 +1,59 @@
+restorescript-1.2-1.noarch.rpm 
+/var/www/html/restore/restore.conf
+/var/www/html/restore/restore.sh
+
+restore.sh
+#!/bin/sh
+
+/bin/echo "runnig restorer"
+/bin/sleep 1
+
+RESTOREHOST=theipadress
+FIRSTPARTIONNAME=$(/usr/sbin/diskutil information $(/bin/df | /usr/bin/grep '/Volumes/' | /usr/bin/grep /dev/disk | /usr/bin/head -1 | /usr/bin/cut -d \  -f1) | /usr/bin/grep "Volume Name" | /usr/bin/cut -d : -f2 | /usr/bin/sed 's/^[ ]*//')
+THEDISK=$(/bin/df | /usr/bin/grep '/Volumes/' | /usr/bin/grep /dev/disk | /usr/bin/head -1 | /usr/bin/cut -d \  -f1)
+
+#diskutil eraseVolume HFS+ temp_vol $RESTORE
+/bin/echo you have two or more partions, will restore to: $FIRSTPARTIONNAME
+/bin/echo press CTRL-c now if this is not what you want, you have 5 seconds do decide
+/bin/sleep 1
+/bin/echo Press CTRL-c NOW! 4 more seconds
+/bin/sleep 1
+/bin/echo Press CTRL-c NOW! 3 more seconds
+/bin/sleep 1
+/bin/echo Press CTRL-c NOW! 2 more seconds
+/bin/sleep 1
+/bin/echo Last chance, CTRL-c NOW or forever hold your peace!
+/bin/sleep 1
+/bin/echo "doing restore on first partion, $FIRSTPARTIONNAME"
+#/bin/echo $FIRSTPART
+#/bin/echo $RESTOREHOST
+
+
+#/usr/sbin/diskutil resizeVolume $THEDISK 38% JHFS+ "Elev Dokument" 58%
+
+FIRSTPART=$(/bin/df | /usr/bin/grep '/Volumes/' | /usr/bin/grep /dev/disk | /usr/bin/head -1 | /usr/bin/cut -d \  -f1)
+/usr/sbin/asr restore --source http://$RESTOREHOST/restore/restore.dmg --target $FIRSTPART --erase --noverify --noprompt --puppetstrings
+RESULT=$(/bin/echo $?)
+if [ ! $RESULT -eq 0 ];then
+	/bin/echo [Error] something went wrong during restore, deleting and trying again
+	/usr/sbin/diskutil eraseVolume HFS+ temp $FIRSTPART
+	/usr/sbin/asr restore --source http://$RESTOREHOST/restore/restore.dmg --target $FIRSTPART --erase --noverify --noprompt --puppetstrings
+	RESULT=$(/bin/echo $?)
+	if [ ! $RESULT -eq 0 ];then
+		/bin/echo [Error] something went badly wrong during restore, try manually restoring
+		/Applications/Utilities/Disk\ Utility.app/Contents/MacOS/Disk\ Utility
+	else
+		/bin/echo Restore done, setting startupdisk and rebooting
+		/usr/sbin/bless --device $FIRSTPART --setBoot > /dev/null 2>&1
+		/sbin/shutdown -h now
+	fi
+else
+	/bin/echo Restore done, setting startupdisk and rebooting
+	/usr/sbin/bless --device $FIRSTPART --setBoot > /dev/null 2>&1
+	/sbin/shutdown -h now
+fi
+exit 0
+
+#shutdown -r now
+
+restore.conf

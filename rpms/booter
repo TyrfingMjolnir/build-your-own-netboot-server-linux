@@ -1,0 +1,8 @@
+booter-2.0-1.noarch.rpm:
+/tftpboot/i386/PlatformSupport.plist
+/tftpboot/i386/booter
+/tftpboot/i386/com.apple.Boot.plist
+/tftpboot/i386/kernelcache
+/tftpboot/i386/x86_64/kernelcache
+/var/www/html/boot/NBImageInfo.plist
+/var/www/html/boot/booter.dmg
