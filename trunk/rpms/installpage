@@ -1,0 +1,18 @@
+installpage-1.3-1.noarch.rpm
+/var/www/html/index.html
+/var/www/html/install.gif
+
+index.html
+<HTML>
+<HEAD>
+<TITLE>Netboot restore page</TITLE>
+</HEAD>
+<BODY BGCOLOR="FFFFFF">
+<table width="100%" height="100%">
+  <tr>
+    <td align="center" valign="middle" > <A HREF="Reinstall.zip"><IMG SRC="install.gif" ALT="" BORDER="0" width="" height=""></A>
+  </tr>
+</table>
+</BODY>
+</HTML>
+

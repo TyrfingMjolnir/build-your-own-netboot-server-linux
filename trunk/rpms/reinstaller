@@ -1,0 +1,14 @@
+reinstaller-1.4-1.noarch.rpm 
+/var/www/html/Reinstall.app
+/var/www/html/Reinstall.app/Contents
+/var/www/html/Reinstall.app/Contents/Info.plist
+/var/www/html/Reinstall.app/Contents/MacOS
+/var/www/html/Reinstall.app/Contents/MacOS/Reinstall
+/var/www/html/Reinstall.app/Contents/Resources
+/var/www/html/Reinstall.app/Contents/Resources/AppSettings.plist
+/var/www/html/Reinstall.app/Contents/Resources/English.lproj
+/var/www/html/Reinstall.app/Contents/Resources/English.lproj/InfoPlist.strings
+/var/www/html/Reinstall.app/Contents/Resources/English.lproj/MainMenu.nib
+/var/www/html/Reinstall.app/Contents/Resources/appIcon.icns
+/var/www/html/Reinstall.app/Contents/Resources/bless
+/var/www/html/Reinstall.app/Contents/Resources/script
