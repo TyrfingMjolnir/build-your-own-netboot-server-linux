@@ -33,6 +33,14 @@ add your subnet that will be served at the end of the dhcpd.conf file:
 
 subnet 192.168.56.0 netmask 255.255.255.0 {}
 
+start the dhcpd service:
+
+service dhcpd start
+
+make this permanent
+
+chkconfig dhcpd on
+
 ad the host ip address to the correct subrange using ip-helper function
 
 Boot a mac holding down the N button.
