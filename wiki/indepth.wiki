@@ -14,6 +14,9 @@ The boot-image is all in all 483 Mb, that is not much to transfer from the boot 
 The setup of the working netboot server is like follows:
 
 Virtual instance running CentOS 6 and with three services running:
+
 dhcpd
+
 httpd
+
 xinet tftpd
