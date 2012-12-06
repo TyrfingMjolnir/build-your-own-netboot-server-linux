@@ -1,0 +1,5 @@
+#!/bin/sh
+
+/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal
+#shutdown -r now
+
