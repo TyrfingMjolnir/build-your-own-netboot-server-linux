@@ -84,3 +84,5 @@ You can speed this process up significantly by building on a mac with SSD or fla
 In the end you will have booter.dmg file that will boot all macs that the InstallESD file supports. And it will be around 480 Mb in size, nice if you have limited bandwidth.
 
 Now the best option would be to package only the booter.dmg and the NBImageInfo.plist into a rpm that you later add to a http repo that you add to the appliance, see how I added the webmin repo in the netbooter.appl file. This way you can handle the booter image separately from the kernel/kernelcache files that gets served using tftp earlier in the boot process.
+
+Lastly do not forget to add the subnet that the VM is located on into the dhcpd.conf file before starting the service. Also add any subnets that you want to restore macs on.
