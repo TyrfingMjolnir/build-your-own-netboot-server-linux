@@ -7,7 +7,7 @@ So you wantto build netboot virtual appliances?
 
 = Details =
 
-This is one method that I find is easy to maintain due to the fact that it is a modular build method. Also one of the goals was to make the boot process as fast as possible so I based the booter-image on the most excellent work made of my ex-collegue Daniel Svensson. He strips out the 
+This is one method that I find is easy to maintain due to the fact that it is a modular build method. Also one of the goals was to make the boot process as fast as possible so I based the booter-image on the most excellent work made of my ex-collegue Daniel Svensson. He strips out the booter image to save bandwidth when distributing it to approx 330 linux servers. He also rocks!
 
 The boot-image is all in all 483 Mb, that is not much to transfer from the boot server to the netbooting client.
 
