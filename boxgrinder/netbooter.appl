@@ -13,8 +13,6 @@ packages:
   - httpd
   - dhcp
   - booter
-  - reinstaller
-  - installpage
   - restorescript
   - php
   - openssh-clients
