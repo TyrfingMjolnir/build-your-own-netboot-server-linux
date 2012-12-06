@@ -71,4 +71,16 @@ The build process will also add the webmin repo to the default repos for your we
 
 To create the booter image you will need the most current version of the InstallESD.dmg file that you can get from the Install Lion app that you can by from the App-store.
 
-Get the entire directory from the source. It is imperative that you have two directories within the build directory
+Get the entire directory from the source. It is imperative that you have two directories within the build directory, source and nestedsource.
+
+Make sure you have the InstallESD.dmg in the same directory and run the creator.sh script as root (use sudo)
+
+The script will mount the InstallESD image into the source directory and remove a lot of un-needed stuff. The next step is to mount the BaseSystem.dmg at the nestedsource directory. Now it will copy from the local mac that is running the build some needed binaries as well as the needed code for the restore feature.¨
+
+This is why you need to build the booter image on a machine with the same OS version and preferably the same build as you are using InstallESD.
+
+You can speed this process up significantly by building on a mac with SSD or flash based storage, I used my MacBookAir for this step and it was at least four times as fast as when building on my MacBookPro with a spinning disk.
+
+In the end you will have booter.dmg file that will boot all macs that the InstallESD file supports. And it will be around 480 Mb in size, nice if you have limited bandwidth.
+
+Now the best option would be to package only the booter.dmg and the NBImageInfo.plist into a rpm that you later add to a http repo that you add to the appliance, see how I added the webmin repo in the netbooter.appl file. This way you can handle the booter image separately from the kernel/kernelcache files that gets served using tftp earlier in the boot process.
