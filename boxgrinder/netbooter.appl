@@ -1,0 +1,51 @@
+name: netbooter
+summary: Reimage Macs using network
+os:
+  name: centos
+  version: 6
+  password: b7n2he
+hardware:
+  partitions:
+    "/":
+      size: 60
+packages:
+  - tftp-server
+  - httpd
+  - dhcp
+  - booter
+  - reinstaller
+  - installpage
+  - restorescript
+  - php
+  - openssh-clients
+  - zip
+files:
+  "/tmp":
+    - "configure.sh"
+    - "rc.local"
+  "/etc/dhcp":
+    - "dhcpd.conf"
+  "/root":
+    - "fixipaddress.sh"
+post:
+  base:
+    - "/sbin/chkconfig httpd on"
+    - "/sbin/chkconfig iptables off"
+    - "/sbin/chkconfig ip6tables off"
+    - "/sbin/chkconfig tftp on"
+    - "/sbin/chkconfig dhcpd off"
+    - "/bin/chmod +x /tmp/configure.sh"
+    - "/tmp/configure.sh"
+    - "/bin/rm -f /tmp/configure.sh"
+    - "/bin/mv /tmp/rc.local /etc/rc.d/rc.local"
+    - "/bin/chmod +x /etc/rc.d/rc.local"
+
+default_repos: true
+
+repos:
+  - name: "local-repo"
+    baseurl: "file:///var/myrepo"
+    ephemeral: true
+  - name: "webmin"
+    baseurl: "http://download.webmin.com/download/yum"
+    ephemeral: false

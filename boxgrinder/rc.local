@@ -1,0 +1,7 @@
+#!/bin/sh
+touch /var/lock/subsys/local
+/bin/cp -r /tftpboot/* /var/lib/tftpboot/
+/bin/cat >/etc/rc.d/rc.local <<EOF
+#!/bin/sh
+touch /var/lock/subsys/local
+EOF
