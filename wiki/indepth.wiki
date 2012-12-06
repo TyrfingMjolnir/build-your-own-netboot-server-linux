@@ -1,0 +1,19 @@
+#summary Indepth of the complete system
+
+= Introduction =
+
+So you wantto build netboot virtual appliances? 
+
+
+= Details =
+
+This is one method that I find is easy to maintain due to the fact that it is a modular build method. Also one of the goals was to make the boot process as fast as possible so I based the booter-image on the most excellent work made of my ex-collegue Daniel Svensson. He strips out the 
+
+The boot-image is all in all 483 Mb, that is not much to transfer from the boot server to the netbooting client.
+
+The setup of the working netboot server is like follows:
+
+Virtual instance running CentOS 6 and with three services running:
+dhcpd
+httpd
+xinet tftpd
