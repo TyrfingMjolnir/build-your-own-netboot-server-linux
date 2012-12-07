@@ -3,7 +3,7 @@ summary: Reimage Macs using network
 os:
   name: centos
   version: 6
-  password: b7n2he
+  password: password
 hardware:
   partitions:
     "/":
