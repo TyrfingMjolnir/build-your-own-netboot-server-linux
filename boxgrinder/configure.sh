@@ -65,6 +65,9 @@ MYIP=$(/sbin/ifconfig eth0 | /bin/grep inet | /bin/grep -v inet6 | /bin/cut -d "
 
 /bin/sed -i "s/theipadress/$MYIP/g" /etc/dhcpd.conf
 
+/bin/sed -i "s/theipadress/$MYIP/g" /etc/dhcp/dhcpd.conf
+
+
 /bin/echo $MYIP >/var/www/html/restore/restore.conf
 
 cd /var/www/html/
